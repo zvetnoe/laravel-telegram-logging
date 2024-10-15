@@ -6,7 +6,7 @@ Send logs to Telegram chat via Telegram bot
 
 ```
 
-composer require grkamil/laravel-telegram-logging
+composer require zvetnoe/laravel-telegram-logging
 
 ```
 
@@ -90,6 +90,7 @@ config(['telegram-logger.template'=>'laravel-telegram-logging::custom'])
                 'driver' => 'custom',
                 'via' => TelegramLogger::class,
                 'chat_id' => env('TELEGRAM_COMPANY_CHAT_ID'),
+                'thread_id' => env('TELEGRAM_COMPANY_THREAD_ID'), // if u need a thread
                 'token' => env('TELEGRAM_COMPANY_BOT_TOKEN'),
                 'level' => 'debug'
             ],

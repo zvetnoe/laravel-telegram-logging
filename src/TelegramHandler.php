@@ -38,6 +38,13 @@ class TelegramHandler extends AbstractProcessingHandler
     private $chatId;
 
     /**
+     * Thread id for bot
+     *
+     * @var int
+     */
+    private $threadId;
+
+    /**
      * Application name
      *
      * @string
@@ -65,6 +72,7 @@ class TelegramHandler extends AbstractProcessingHandler
         $this->config   = $config;
         $this->botToken = $this->getConfigValue('token');
         $this->chatId   = $this->getConfigValue('chat_id');
+        $this->threadId = $this->getConfigValue('thread_id');
 
         // define variables for text message
         $this->appName = config('app.name');
@@ -131,12 +139,18 @@ class TelegramHandler extends AbstractProcessingHandler
      */
     private function sendMessage(string $text): void
     {
+        $srcQuery = [
+            'text'       => $text,
+            'chat_id'    => $this->chatId,
+            'parse_mode' => 'html',
+        ];
+
+        if ($this->threadId) {
+            $srcQuery['message_thread_id'] = $this->threadId;
+        }
+
         $httpQuery = http_build_query(array_merge(
-            [
-                'text'       => $text,
-                'chat_id'    => $this->chatId,
-                'parse_mode' => 'html',
-            ],
+            $srcQuery,
             config('telegram-logger.options', [])
         ));
 
