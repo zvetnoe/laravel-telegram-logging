@@ -16,6 +16,7 @@ Add to <b>.env</b>
 ```
 TELEGRAM_LOGGER_BOT_TOKEN=id:token
 TELEGRAM_LOGGER_CHAT_ID=chat_id
+TELEGRAM_LOGGER_THREAD_ID=thread_id
 ```
 
 
